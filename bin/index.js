@@ -7,30 +7,37 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 
 async function scrape(CODE, output){
-    let data = await axios.get(`http://www.scpwiki.com/scp-${CODE}`);
+    await axios.get(`http://www.scpwiki.com/scp-${CODE}`)
+    .then(response => { 
+        let data = response
+        const dom = new JSDOM(data.data);
 
-   const dom = new JSDOM(data.data);
+    const { document } = dom.window;
 
-   const { document } = dom.window;
-
-   let title = `${document.querySelector('#page-title').textContent.trim()}` ;
-   let bodyRaw = Array.from(document.querySelector("#page-content").children);
-   let body = "";
-   for (let i = 2; i < bodyRaw.length - 2; i++) { 
-       body.replace(/(\+|\-) show block/, "");
+    let title = `${document.querySelector('#page-title').textContent.trim()}` ;
+    let bodyRaw = Array.from(document.querySelector("#page-content").children);
+    let body = "";
+    for (let i = 2; i < bodyRaw.length - 2; i++) { 
+        body.replace(/(\+|\-) show block/, "");
         body += bodyRaw[i].textContent;
         body += "\n";
    }
 
-   let result = title + "\n" + body;
+    let result = title + "\n" + body;
 
-   if(!output) {
+    if(!output) {
        console.log(chalk.bgBlack.yellow.underline.bold(title));
        console.log(chalk.bold(body));
-   }
-   if(output) {
+    }
+    if(output) {
        fs.writeFileSync(`${title}.txt`, result);
-   } 
+    } 
+        })
+    .catch(e => {
+        return console.log(chalk.red("SCP not found"))
+    })
+	
+   
 }
 
 
@@ -46,7 +53,7 @@ inquirer.prompt([ {
         inquirer.prompt([ 
             {
                 name: "code",
-                type: "number",
+                type: "text",
                 message: "Kindly Enter the number"
             },
             {
