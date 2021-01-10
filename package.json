@@ -1,0 +1,27 @@
+{
+  "name": "scp-wiki-cli",
+  "version": "2.0.2",
+  "description": "a cli to get scp stories from the scp wiki",
+  "main": "/bin/index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "SCP wiki",
+    "SCP",
+    "scp",
+    "cli",
+    "secure protect contain"
+  ],
+  "author": "Ronald Pang",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chalk": "^4.1.0",
+    "inquirer": "^7.3.3",
+    "jsdom": "^16.4.0"
+  },
+  "bin": {
+    "scp-wiki-cli": "./bin/index.js"
+  }
+}
