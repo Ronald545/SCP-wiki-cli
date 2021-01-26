@@ -1,13 +1,12 @@
-function rng() {
-    let randomNumber = Math.floor(Math.random() * 100).toString()
-    let resultNumber = ""
-    let doubleZeros = "00"
-    let oneZero = "0"
+function rng () {
+  const randomNumber = Math.floor(Math.random() * 100).toString()
+  let resultNumber = ''
+  const doubleZeros = '00'
+  const oneZero = '0'
 
-    randomNumber.length === 1 ? resultNumber = doubleZeros.concat(randomNumber) : resultNumber = oneZero.concat(randomNumber)
+  randomNumber.length === 1 ? resultNumber = doubleZeros.concat(randomNumber) : resultNumber = oneZero.concat(randomNumber)
 
-    return resultNumber
+  return resultNumber
 }
 
-
-module.exports = rng;
+module.exports = rng
